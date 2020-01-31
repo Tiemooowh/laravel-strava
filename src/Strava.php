@@ -144,7 +144,7 @@ class Strava
     {
         if ($keys != '')
             $keys = join(",", $keys);
-        
+
         $url = $this->strava_uri . '/activities/'. $activityID .'/streams?keys='. $keys .'&key_by_type'. $keyByType;
         $config = $this->bearer($token);
         $res = $this->get($url, $config);
@@ -350,6 +350,17 @@ class Strava
     public function starredSegments($token, $page = 1, $perPage = 10)
     {
         $url = $this->strava_uri . '/segments/starred?page='. $page .'&per_page=' . $perPage;
+        $config = $this->bearer($token);
+        $res = $this->get($url, $config);
+        return $res;
+    }
+
+    #
+    # Strava Webhook Subscription
+    #
+    public function subscriptions($token)
+    {
+        $url = $this->strava_uri . '/push_subscriptions';
         $config = $this->bearer($token);
         $res = $this->get($url, $config);
         return $res;
